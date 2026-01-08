@@ -18,7 +18,7 @@ export default function StaffClientAssignments() {
         const missing = data.some(d => !d.shiftDate || !d.shiftTime || d.shiftTime === '' || d.shiftTime === ' - ');
         if (missing) {
           try {
-            const clientsRes = await api.get('/api/supervisor/clients');
+            // Removed unused clientsRes
             const staffRes = await api.get('/api/supervisor/staff');
             const staffMap = new Map((staffRes.data || []).map(s => [s._id, s]));
             // populate data entries where possible

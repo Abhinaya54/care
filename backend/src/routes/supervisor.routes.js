@@ -1,6 +1,6 @@
 
 const router = require("express").Router();
-const User = require("../models/User");
+const User = require("../models/user");
 const Client = require("../models/Client");
 const auth = require("../middleware/auth.middleware");
 const supervisorController = require("../controllers/supervisor.controller");
@@ -82,7 +82,7 @@ router.post("/clients", auth(["supervisor"]), async (req, res) => {
     console.log("[DEBUG] saved client assignedStaff:", client.assignedStaff);
     // Update assigned staff's assignedClients array
     if (Array.isArray(assignedStaff) && assignedStaff.length > 0) {
-      const User = require("../models/User");
+      const User = require("../models/user");
       await User.updateMany(
         { _id: { $in: assignedStaff } },
         { $addToSet: { assignedClients: client._id } }

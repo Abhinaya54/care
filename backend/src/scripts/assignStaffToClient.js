@@ -1,7 +1,7 @@
 // Moved from backend root to src/scripts
 require('dotenv').config();
 const mongoose = require('mongoose');
-const User = require('../models/User');
+const User = require('../models/user');
 const Client = require('../models/Client');
 
 const MONGO_URI = process.env.MONGO_URI || process.env.MONGODB_URI;

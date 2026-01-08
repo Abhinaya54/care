@@ -1,6 +1,6 @@
 // Get assigned staff for a client with detailed info (for /api/supervisor/clients/:clientId/assigned-staff)
 const Client = require("../models/Client");
-const User = require("../models/User");
+const User = require("../models/user");
 
 exports.getAssignedStaffForClient = async (req, res) => {
   try {

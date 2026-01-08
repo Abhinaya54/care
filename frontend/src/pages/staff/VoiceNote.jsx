@@ -115,7 +115,3 @@ const VoiceNote = () => {
 };
 
 export default VoiceNote;
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 18, cursor: "pointer", width: "fit-content" }} onClick={() => navigate(-1)}>
-            <svg width="28" height="28" fill="none" stroke="#805AD5" strokeWidth="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            <span style={{ color: "#805AD5", fontWeight: 500, fontSize: 16 }}>Back</span>
-          </div>

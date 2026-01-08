@@ -233,7 +233,7 @@ exports.finalizeNote = async (req, res) => {
 };
 const Shift = require("../models/Shift");
 const Client = require("../models/Client");
-const User = require("../models/User");
+const User = require("../models/user");
 
 exports.getDashboard = async (req, res) => {
   try {

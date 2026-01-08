@@ -1,7 +1,7 @@
 // Script to assign a staff user to a client using email and clientId (new schema)
 require('dotenv').config();
 const mongoose = require('mongoose');
-const User = require('../models/User');
+const User = require('../models/user');
 const Client = require('../models/Client');
 
 const MONGO_URI = process.env.MONGO_URI || process.env.MONGODB_URI;
