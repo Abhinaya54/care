@@ -52,18 +52,18 @@ const ClientNotes = () => {
     const [showVoiceModal, setShowVoiceModal] = React.useState(false);
     const [showWriteModal, setShowWriteModal] = useState(false);
     const [recording, setRecording] = React.useState(false);
-    const [transcript, setTranscript] = React.useState("");
-    const [editText, setEditText] = React.useState("");
+    // const [transcript, setTranscript] = React.useState("");
+    // const [editText, setEditText] = React.useState("");
     const [error, setError] = React.useState("");
     const recognitionRef = React.useRef(null);
-    const isSpeechRecognitionSupported = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+    // const isSpeechRecognitionSupported = !!(window.SpeechRecognition || window.webkitSpeechRecognition);
     // State for Previous Notes modal
     const [showPrevNotes, setShowPrevNotes] = useState(false);
     const [noteFilter, setNoteFilter] = useState("week"); // 'week', 'month', 'year', 'all'
     const [loading, setLoading] = useState(true);
     const [notes, setNotes] = useState([]);
-    const [editingId, setEditingId] = useState(null);
-    const [editContent, setEditContent] = useState("");
+    // const [editingId, setEditingId] = useState(null);
+    // const [editContent, setEditContent] = useState("");
     const [category, setCategory] = useState(() => (location.state && location.state.category) || "General Observation");
     const [client, setClient] = useState(null);
 
@@ -91,56 +91,7 @@ const ClientNotes = () => {
       fetchNotes();
     }, [clientId, noteFilter]);
 
-    const handleEdit = (note) => {
-      setEditingId(note._id);
-      setEditContent(note.content);
-    };
-
-    const handleEditSave = async () => {
-      try {
-        await api.put(`/api/staff/notes/${editingId}`, { content: editContent });
-        setNotes(notes.map(n => n._id === editingId ? { ...n, content: editContent, draft: false } : n));
-        setEditingId(null);
-        setEditContent("");
-      } catch (err) {
-        setError("Failed to update note");
-      }
-    };
-
-    const handleStartRecording = () => {
-      if (!isSpeechRecognitionSupported) return;
-      setTranscript("");
-      setEditText("");
-      setRecording(true);
-      setError("");
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      const recognition = new SpeechRecognition();
-      recognition.continuous = true;
-      recognition.interimResults = true;
-      recognition.lang = "en-US";
-      recognition.onresult = (event) => {
-        let interim = "";
-        let final = "";
-        for (let i = 0; i < event.results.length; ++i) {
-          if (event.results[i].isFinal) {
-            final += event.results[i][0].transcript;
-          } else {
-            interim += event.results[i][0].transcript;
-          }
-        }
-        setTranscript(final + interim);
-        setEditText(final + interim);
-      };
-      recognition.onerror = (event) => {
-        setError('Speech recognition error: ' + event.error);
-        setRecording(false);
-      };
-      recognition.onend = () => {
-        setRecording(false);
-      };
-      recognitionRef.current = recognition;
-      recognition.start();
-    };
+    // removed unused handleEdit, handleEditSave, handleSaveAndReview
 
     const handleStopRecording = () => {
       if (recognitionRef.current) {
@@ -163,20 +114,7 @@ const ClientNotes = () => {
       });
     };
 
-    const handleSaveAndReview = () => {
-      if (recording) handleStopRecording();
-      const safeCategory = category && category.trim() !== "" ? category : "General Observation";
-      navigate(`/staff/clients/${clientId}/review-note`, {
-        state: {
-          transcript: editText,
-          client: location.state?.client,
-          user,
-          noteType: "voice",
-          allowEdit: false,
-          category: safeCategory
-        }
-      });
-    };
+    // Removed unused handleSaveAndReview
 
     if (loading) return <div style={styles.loading}>Loading...</div>;
     // Only show error if not a 403 supervisor error (which staff should not see)
@@ -361,15 +299,11 @@ const ClientNotes = () => {
                   </div>
                 </div>
                 <div style={{ display: 'flex', gap: 10, marginBottom: 18 }}>
-                  {!recording && (
-                    <button style={{ background: '#805AD5', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 24px', fontWeight: 600, fontSize: 16, cursor: 'pointer' }} onClick={handleStartRecording}>Start</button>
-                  )}
+                  {/* Removed Start button: handleStartRecording not defined */}
                   {recording && (
                     <button style={{ background: '#D53F8C', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 24px', fontWeight: 600, fontSize: 16, cursor: 'pointer' }} onClick={handleStopRecording}>Stop</button>
                   )}
-                  {!recording && transcript && (
-                    <button style={{ background: '#2563EB', color: '#fff', border: 'none', borderRadius: 8, padding: '10px 24px', fontWeight: 600, fontSize: 16, cursor: 'pointer' }} onClick={handleStartRecording}>Resume</button>
-                  )}
+                  {/* Removed Resume button: handleStartRecording not defined */}
                 </div>
               </div>
             </div>
