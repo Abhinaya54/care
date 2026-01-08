@@ -52,7 +52,7 @@ const ClientNotes = () => {
     const [showVoiceModal, setShowVoiceModal] = React.useState(false);
     const [showWriteModal, setShowWriteModal] = useState(false);
     const [recording, setRecording] = React.useState(false);
-    const [transcript, setTranscript] = React.useState("");
+    const [transcript] = React.useState("");
     // const [editText, setEditText] = React.useState("");
     const [error, setError] = React.useState("");
     const recognitionRef = React.useRef(null);
