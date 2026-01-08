@@ -1,11 +1,19 @@
+
 require("dotenv").config();
 const app = require("./app");
 const connectDB = require("./config/db");
 
-// DB
-connectDB();
+// Connect to DB before handling requests
+let isDbConnected = false;
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () =>
-  console.log(`🚀 Server running on port ${PORT}`)
-);
+async function ensureDbConnected() {
+  if (!isDbConnected) {
+    await connectDB();
+    isDbConnected = true;
+  }
+}
+
+module.exports = async (req, res) => {
+  await ensureDbConnected();
+  app(req, res);
+};
